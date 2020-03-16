@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
@@ -24,7 +25,7 @@ services:
       - web-root:/var/www/html
     depends_on:
       - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email sammy@mgamlem3.com --agree-tos --no-eff-email --staging -d mgamlem3.com  -d www.mgamlem3.com --dry-run
+    command: certonly --webroot --webroot-path=/var/www/html --email webmaster@mgamlem3.com --agree-tos --no-eff-email -d mgamlem3.com  -d www.mgamlem3.com --dry-run
 
 volumes:
   certbot-etc:
