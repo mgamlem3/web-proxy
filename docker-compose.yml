@@ -23,7 +23,6 @@ services:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
-      - nginx-log:/var/log/nginx
     depends_on:
       - webserver
     networks:
@@ -34,7 +33,6 @@ volumes:
   certbot-etc:
   certbot-var:
   web-root:
-  nginx-log:
     driver: local
     driver_opts:
       type: none
