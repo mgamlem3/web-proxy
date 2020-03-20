@@ -1,0 +1,14 @@
+{
+  "name": "WebProxy",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/mgamlem3/web-proxy.git",
+  "author": "Michael Gamlem III <mgamlem3@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.0",
+    "https": "^1.0.0"
+  }
+}
