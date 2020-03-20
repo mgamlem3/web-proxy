@@ -14,7 +14,7 @@ services:
       - certbot-var:/var/lib/letsencrypt
     networks:
       - app-network
-    command: cd /app && yarn && node server.js
+    command: yarn && node server.js
 
   certbot:
     image: certbot/certbot
