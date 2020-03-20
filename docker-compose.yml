@@ -9,12 +9,12 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./package.json:/
+      - ./package.json:/app
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
     networks:
       - app-network
-    command: yarn && node server.js
+    command: cd /app && yarn && node server.js
 
   certbot:
     image: certbot/certbot
