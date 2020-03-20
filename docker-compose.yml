@@ -1,7 +1,8 @@
 version: '3'
 
 services:
-    server:
+    proxy-server:
+        restart: unless-stopped
         build: .
         ports:
             - "80:80"
