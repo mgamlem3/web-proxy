@@ -13,6 +13,7 @@ services:
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - nginx-log:/var/log/nginx
     networks:
       - app-network
 
@@ -33,10 +34,11 @@ volumes:
   certbot-etc:
   certbot-var:
   web-root:
+    nginx-log:
     driver: local
     driver_opts:
       type: none
-      device: /home/michael/proxy-data
+      device: /Users/michael/Desktop/docker
       o: bind
 
 networks:
