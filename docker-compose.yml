@@ -19,12 +19,15 @@ services:
   certbot:
     image: certbot/certbot
     container_name: certbot
+    restart: always
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
     depends_on:
       - webserver
+    networks:
+      - app-network
     command: certonly --webroot --webroot-path=/var/www/html --email webmaster@mgamlem3.com --agree-tos --no-eff-email -d mgamlem3.com  -d www.mgamlem3.com --dry-run
 
 volumes:
@@ -34,7 +37,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/michael/proxy-data
+      device: /Users/michael/Desktop/docker
       o: bind
 
 networks:
