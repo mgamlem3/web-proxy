@@ -38,7 +38,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /Users/michael/Desktop/docker
+      device: /home/michael/proxy-data
       o: bind
 
 networks:
