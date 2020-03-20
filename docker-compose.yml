@@ -33,8 +33,8 @@ services:
 volumes:
   certbot-etc:
   certbot-var:
+  nginx-log:
   web-root:
-    nginx-log:
     driver: local
     driver_opts:
       type: none
