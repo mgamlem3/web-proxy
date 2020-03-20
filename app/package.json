@@ -6,7 +6,8 @@
   "author": "Michael Gamlem III <mgamlem3@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "yarn install --frozen-lockfile && node server.js"
+    "build": "yarn install --frozen-lockfile",
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.17.1"
