@@ -12,8 +12,10 @@ app.use(express.static("public"));
 app.get("/public", function(req, res) {
 	res.status(200).send("okay");
 });
-app.get("/.well-known*", function(req, res) {
-	res.sendFile(fs.readFileSync("/etc/letsencrypt" + req.url));
+app.get("/.well-known*", function (req, res) {
+	const string = "/etc/letsencrypt" + req.url;
+	console.log(string);
+	res.sendFile(fs.readFileSync(string.toString()));
 });
 app.use(
 	"/ls",
