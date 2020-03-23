@@ -16,7 +16,6 @@ app.get("/.well-known*", function(req, res) {
 	res.sendFile(fs.readFileSync("/etc/letsencrypt" + req.url));
 });
 app.get("/", function(req, res) {
-	console.log(req.url);
-	res.sendFile("/index.html");
+	res.status(200).send("index");
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
