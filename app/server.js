@@ -15,9 +15,12 @@ app.get("/public", function(req, res) {
 app.get("/.well-known*", function(req, res) {
 	res.sendFile(fs.readFileSync("/etc/letsencrypt" + req.url));
 });
-app.get("/ls", function(req, res) {
-	serveIndex("/etc/letsencrypt");
-});
+app.use(
+	"/ls",
+	express.static("etc/letsencrypt"),
+	serveIndex("etc/letsencrypt", { icons: true }),
+);
+
 app.get("/", function(req, res) {
 	res.status(200).send("index");
 });
