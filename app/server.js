@@ -25,14 +25,18 @@ app.get("/", function(req, res) {
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-https
-	.createServer(
-		{
-			key: fs.readFileSync("/etc/letsencrypt/mgamlem3/privkey.pem"),
-			cert: fs.readFileSync("/etc/letsencrypt/mgamlem3/fullchain.pem"),
-		},
-		app,
-	)
-	.listen(443, function() {
-		console.log("Example app listening on port 443!");
-	});
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/mgamlem3/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/mgamlem3/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/mgamlem3/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+
+const httpsServer = https.createServer(credentials, app);
+httpsServer.listen(443, () => {
+	console.log("HTTPS Server running on port 443");
+});
