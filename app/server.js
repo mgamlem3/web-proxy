@@ -17,7 +17,7 @@ app.get("/.well-known*", function (req, res) {
 	console.log(string);
 	const file = fs.readFileSync(string.toString());
 	console.log(file);
-	res.sendFile(file);
+	res.sendFile(string);
 });
 app.use(
 	"/ls",
