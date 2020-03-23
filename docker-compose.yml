@@ -9,4 +9,4 @@ services:
             - "443:443"
         volumes:
             - /home/michael/proxy-data:/etc/letsencrypt
-            - /etc/letsencrypt/live/mgamlem3.com:/etc/certs/mgamlem3
+            - /etc/letsencrypt/live/mgamlem3.com:/certs/mgamlem3
