@@ -28,7 +28,7 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 https
 	.createServer(
 		{
-			key: fs.readFileSync("/etc/letsencrypt/mgamlem3/privkey.pen"),
+			key: fs.readFileSync("/etc/letsencrypt/mgamlem3/privkey.pem"),
 			cert: fs.readFileSync("/etc/letsencrypt/mgamlem3/fullchain.pem"),
 		},
 		app,
