@@ -15,7 +15,9 @@ app.get("/public", function(req, res) {
 app.get("/.well-known*", function (req, res) {
 	const string = "/etc/letsencrypt" + req.url;
 	console.log(string);
-	res.sendFile(fs.readFileSync(string.toString()));
+	const file = fs.readFileSync(string.toString());
+	console.log(file);
+	res.sendFile(file);
 });
 app.use(
 	"/ls",
