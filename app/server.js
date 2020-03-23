@@ -17,8 +17,8 @@ app.get("/.well-known*", function(req, res) {
 });
 app.use(
 	"/ls",
-	express.static("etc/letsencrypt"),
-	serveIndex("etc/letsencrypt", { icons: true }),
+	express.static("/etc/letsencrypt"),
+	serveIndex("/etc/letsencrypt", { icons: true }),
 );
 
 app.get("/", function(req, res) {
