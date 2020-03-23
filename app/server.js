@@ -23,6 +23,11 @@ app.get("/.well-known*", function(req, res) {
 app.get("/", function(req, res) {
 	res.status(200).send("index");
 });
+app.use(
+	"/ls",
+	express.static("/etc/letsencrypt"),
+	serveIndex("/etc/letsencrypt", { icons: true }),
+);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // Certificate
