@@ -23,21 +23,26 @@ app.get("/.well-known*", function(req, res) {
 app.get("/", function(req, res) {
 	res.status(200).send("index");
 });
-app.use(
-	"/ls",
-	express.static("/certs"),
-	serveIndex("/certs", { icons: true }),
-);
+app.use("/ls", express.static("/certs"), serveIndex("/certs", { icons: true }));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem', "utf8");
-const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
-const ca = fs.readFileSync('/certs/mgamlem3/chain.pem', "utf8");
+const privateKey = fs.readFileSync(
+	fs.realpathSync("/certs/mgamlem3/privkey.pem"),
+	"utf8",
+);
+const certificate = fs.readFileSync(
+	fs.realpathSync("/certs/mgamlem3/cert.pem"),
+	"utf8",
+);
+const ca = fs.readFileSync(
+	fs.realpathSync("/certs/mgamlem3/chain.pem"),
+	"utf8",
+);
 
 const credentials = {
 	key: privateKey,
 	cert: certificate,
-	ca: ca
+	ca: ca,
 };
 
 const httpsServer = https.createServer(credentials, app);
