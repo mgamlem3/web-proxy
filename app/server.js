@@ -31,17 +31,17 @@ app.use(
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 // Certificate
-const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/certs/mgamlem3/cert.pem', 'utf8');
-const ca = fs.readFileSync('/certs/mgamlem3/chain.pem', 'utf8');
+// const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/certs/mgamlem3/cert.pem', 'utf8');
+// const ca = fs.readFileSync('/certs/mgamlem3/chain.pem', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443, () => {
-	console.log("HTTPS Server running on port 443");
-});
+// const httpsServer = https.createServer(credentials, app);
+// httpsServer.listen(443, () => {
+// 	console.log("HTTPS Server running on port 443");
+// });
