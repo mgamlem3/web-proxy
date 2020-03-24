@@ -26,18 +26,9 @@ app.get("/", function(req, res) {
 app.use("/ls", express.static("/certs"), serveIndex("/certs", { icons: true }));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-const privateKey = fs.readFileSync(
-	fs.realpathSync("/certs/mgamlem3/privkey.pem"),
-	"utf8",
-);
-const certificate = fs.readFileSync(
-	fs.realpathSync("/certs/mgamlem3/cert.pem"),
-	"utf8",
-);
-const ca = fs.readFileSync(
-	fs.realpathSync("/certs/mgamlem3/chain.pem"),
-	"utf8",
-);
+const privateKey = fs.readFileSync("/certs/mgamlem3/privkey.pem", "utf8");
+const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
+const ca = fs.readFileSync("/certs/mgamlem3/chain.pem", "utf8");
 
 const credentials = {
 	key: privateKey,
