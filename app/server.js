@@ -4,7 +4,6 @@ const express = require("express");
 const fs = require("fs");
 const https = require("https");
 const serveIndex = require("serve-index");
-const path = require("path");
 
 const app = express();
 const port = 80;
@@ -31,33 +30,9 @@ app.use(
 );
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-// const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem');
-const privateKey = fs.readFile(
-	path.resolve(__dirname, "/certs/mgamlem3/privkey.pem"),
-	(err, data) => {
-		//error handling
-		if (err) return console.error(err);
-		return data;
-	},
-);
-// const certificate = fs.readFileSync('/certs/mgamlem3/cert.pem');
-const certificate = fs.readFile(
-	path.resolve(__dirname, "/certs/mgamlem3/privkey.pem"),
-	(err, data) => {
-		//error handling
-		if (err) return console.error(err);
-		return data;
-	},
-);
-// const ca = fs.readFileSync('/certs/mgamlem3/chain.pem');
-const ca = fs.readFile(
-	path.resolve(__dirname, "/certs/mgamlem3/chain.pem"),
-	(err, data) => {
-		//error handling
-		if (err) return console.error(err);
-		return data;
-	},
-);
+const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem', "utf8");
+const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
+const ca = fs.readFileSync('/certs/mgamlem3/chain.pem', "utf8");
 
 const credentials = {
 	key: privateKey,
