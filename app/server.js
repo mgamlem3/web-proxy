@@ -30,9 +30,9 @@ app.use(
 );
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-const privateKey = fs.readFileSync('/certs/mgamlem3/privkey.pem');
-const certificate = fs.readFileSync('/certs/mgamlem3/cert.pem');
-const ca = fs.readFileSync('/certs/mgamlem3/chain.pem');
+const privateKey = fs.readFileSync(__dirname + '/certs/mgamlem3/privkey.pem');
+const certificate = fs.readFileSync(__dirname + '/certs/mgamlem3/cert.pem');
+const ca = fs.readFileSync(__dirname + '/certs/mgamlem3/chain.pem');
 
 const credentials = {
 	key: privateKey,
