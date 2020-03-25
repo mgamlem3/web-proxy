@@ -12,8 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
-    "https": "^1.0.0",
-    "serve-index": "^1.9.1"
+    "http": "^0.0.1-security",
+    "https": "^1.0.0"
   },
   "devDependencies": {
     "prettier": "^2.0.1"
