@@ -5,6 +5,8 @@ const http = require("http");
 const https = require("https");
 const fs = require("fs");
 
+const app = express();
+
 // cert
 const privateKey = fs.readFileSync("/certs/mgamlem3/privkey.pem", "utf8");
 const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
@@ -17,8 +19,8 @@ const credentials = {
 };
 
 // create servers
-const app = https.createServer(credentials, app);
-app.listen(443, () => {
+const https = https.createServer(credentials, app);
+https.listen(443, () => {
 	console.log("HTTPS Server running on port 443");
 });
 
