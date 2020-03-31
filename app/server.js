@@ -3,6 +3,7 @@
 const express = require("express");
 const http = require("http");
 const https = require("https");
+const httpProxy = require("http-proxy");
 const fs = require("fs");
 
 const app = express();
@@ -20,6 +21,7 @@ const credentials = {
 
 // create servers
 const httpsServer = https.createServer(credentials, app);
+const proxy = httpProxy.createProxyServer();
 httpsServer.listen(443, () => {
 	console.log("HTTPS Server running on port 443");
 });
@@ -34,9 +36,6 @@ http
 	})
 	.listen(80);
 
-app.get("/public", function(req, res) {
-	res.status(200).send("okay");
-});
 app.get("/.well-known*", function(req, res) {
 	const string = "/etc/letsencrypt" + req.url;
 	console.log(string);
@@ -44,6 +43,12 @@ app.get("/.well-known*", function(req, res) {
 	console.log(file);
 	res.sendFile(string);
 });
+
+// routes
+app.all("gitlab.*", function (req, res) {
+	proxy.web(req, res, {target: "gitlab.mgamlem3.com"})
+})
+
 app.get("/", function(req, res) {
 	res.status(200).send("index");
 });
