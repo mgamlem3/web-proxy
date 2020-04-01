@@ -38,7 +38,6 @@ http
 
 const reverseProxy = function(req, res, next) {
 	if (req.hostname.includes("git")) {
-		console.info("redirecting to git");
 		proxy.web(req, res, { target: "http://gitlab.mgamlem3.com" }, function() {
 			next(500);
 		});
