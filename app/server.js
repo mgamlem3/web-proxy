@@ -12,11 +12,11 @@ const app = express();
 const privateKey = fs.readFileSync("/certs/mgamlem3/privkey.pem", "utf8");
 const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
 const ca = fs.readFileSync("/certs/mgamlem3/chain.pem", "utf8");
-const gitPrivateKey = fs.readFileSync(
-	"/certs/git.mgamlem3/privkey.pem",
-	"utf8",
-);
-const gitCertificate = fs.readFileSync("/certs/git.mgamlem3/cert.pem", "utf8");
+// const gitPrivateKey = fs.readFileSync(
+// 	"/certs/git.mgamlem3/privkey.pem",
+// 	"utf8",
+// );
+// const gitCertificate = fs.readFileSync("/certs/git.mgamlem3/cert.pem", "utf8");
 
 const credentials = {
 	key: privateKey,
@@ -25,8 +25,8 @@ const credentials = {
 };
 
 const gitCredentials = {
-	key: gitPrivateKey,
-	cert: gitCertificate,
+	// key: gitPrivateKey,
+	// cert: gitCertificate,
 };
 
 // create servers
