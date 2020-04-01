@@ -36,18 +36,20 @@ http
 	})
 	.listen(80);
 
-// routes
-app.get("/", function(req, res, next) {
+const reverseProxy = function(req, res, next) {
 	if (req.hostname.includes("git")) {
 		console.info("redirecting to git");
-		proxy.web(req, res, { target: "http://gitlab.mgamlem3.com" }, function(
-			err,
-		) {
+		proxy.web(req, res, { target: "http://gitlab.mgamlem3.com" }, function() {
 			next(500);
 		});
-	} else {
-		res.status(200).send("index");
 	}
+};
+
+app.use(reverseProxy);
+
+// routes
+app.get("/", function(res) {
+	res.status(200).send("index");
 });
 
 app.get("/.well-known*", function(req, res) {
