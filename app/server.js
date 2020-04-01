@@ -51,7 +51,7 @@ app.get("/", function(req, res) {
 			proxy.web(req, res, { target: "gitlab.mgamlem3.com" });
 		} catch (error) {
 			console.error(error);
-			next(error);
+			res.status(500).send(error);
 		}
 	} else {
 		res.status(200).send("index");
