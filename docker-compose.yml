@@ -1,11 +1,16 @@
 version: '3'
-
 services:
-    proxy-server:
-        restart: unless-stopped
-        build: .
-        ports:
-            - "80:80"
-            - "443:443"
-        volumes:
-            - /home/michael/proxy-data:/etc/letsencrypt
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
