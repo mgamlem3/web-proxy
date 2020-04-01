@@ -45,11 +45,15 @@ app.get("/.well-known*", function(req, res) {
 });
 
 // routes
-app.get("/", function (req, res) {
-	if (req.hostname.includes('git')) {
-		proxy.web(req, res, {target: "gitlab.mgamlem3.com"})
-	}
-	else {
+app.get("/", function(req, res) {
+	if (req.hostname.includes("git")) {
+		try {
+			proxy.web(req, res, { target: "gitlab.mgamlem3.com" });
+		} catch (error) {
+			console.error(error);
+			next(error);
+		}
+	} else {
 		res.status(200).send("index");
 	}
 });
