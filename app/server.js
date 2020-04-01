@@ -36,19 +36,11 @@ http
 	})
 	.listen(80);
 
-app.get("/.well-known*", function(req, res) {
-	const string = "/etc/letsencrypt" + req.url;
-	console.log(string);
-	const file = fs.readFileSync(string.toString());
-	console.log(file);
-	res.sendFile(string);
-});
-
 // routes
 app.get("/", function(req, res, next) {
 	if (req.hostname.includes("git")) {
 		console.info("redirecting to git");
-		proxy.web(req, res, { target: "https://gitlab.mgamlem3.com" }, function(
+		proxy.web(req, res, { target: "http://gitlab.mgamlem3.com" }, function(
 			err,
 		) {
 			next(500);
@@ -56,6 +48,14 @@ app.get("/", function(req, res, next) {
 	} else {
 		res.status(200).send("index");
 	}
+});
+
+app.get("/.well-known*", function(req, res) {
+	const string = "/etc/letsencrypt" + req.url;
+	console.log(string);
+	const file = fs.readFileSync(string.toString());
+	console.log(file);
+	res.sendFile(string);
 });
 
 // default error handlers
@@ -77,5 +77,5 @@ app.use(function(req, res) {
 
 app.use(function(err, res) {
 	res.status(err.status || 500);
-	res.render("500", { error: err });
+	res.send("500 Something went wrong, it's our fault. :(");
 });
