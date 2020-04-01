@@ -57,3 +57,25 @@ app.get("/", function(req, res, next) {
 		res.status(200).send("index");
 	}
 });
+
+// default error handlers
+app.use(function(req, res) {
+	res.status(404);
+
+	res.format({
+		html: function() {
+			res.render("404", { url: req.url });
+		},
+		json: function() {
+			res.json({ error: "Not found" });
+		},
+		default: function() {
+			res.type("txt").send("Not found");
+		},
+	});
+});
+
+app.use(function(err, res) {
+	res.status(err.status || 500);
+	res.render("500", { error: err });
+});
