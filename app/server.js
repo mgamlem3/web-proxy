@@ -47,6 +47,7 @@ app.get("/.well-known*", function(req, res) {
 // routes
 app.get("/", function(req, res) {
 	if (req.hostname.includes("git")) {
+		console.info("redirecting to git");
 		try {
 			proxy.web(req, res, { target: "gitlab.mgamlem3.com" });
 		} catch (error) {
