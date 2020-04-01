@@ -45,10 +45,11 @@ app.get("/.well-known*", function(req, res) {
 });
 
 // routes
-app.all("git*", function (req, res) {
-	proxy.web(req, res, {target: "gitlab.mgamlem3.com"})
-})
-
-app.get("/", function(req, res) {
-	res.status(200).send("index");
+app.get("/", function (req, res) {
+	if (req.hostname.includes('git')) {
+		proxy.web(req, res, {target: "gitlab.mgamlem3.com"})
+	}
+	else {
+		res.status(200).send("index");
+	}
 });
