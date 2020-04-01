@@ -64,7 +64,7 @@ app.use(function(req, res) {
 
 	res.format({
 		html: function() {
-			res.render("404", { url: req.url });
+			res.send(`404 Cannot find ${req.url}`);
 		},
 		json: function() {
 			res.json({ error: "Not found" });
