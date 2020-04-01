@@ -12,6 +12,8 @@ const app = express();
 const privateKey = fs.readFileSync("/certs/mgamlem3/privkey.pem", "utf8");
 const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
 const ca = fs.readFileSync("/certs/mgamlem3/chain.pem", "utf8");
+const gitPrivateKey = fs.readFileSync("/certs/git.mgamlem3/privkey.pem", "utf8");
+const gitCertificate = fs.readFileSync("/certs/git.mgamlem3/cert.pem", "utf8");
 
 const credentials = {
 	key: privateKey,
@@ -19,9 +21,14 @@ const credentials = {
 	ca: ca,
 };
 
+const gitCredentials = {
+	key: gitPrivateKey,
+	cert: gitCertificate,
+}
+
 // create servers
 const httpsServer = https.createServer(credentials, app);
-const proxy = httpProxy.createProxyServer();
+const proxy = httpProxy.createProxyServer({ ssl: gitCredentials });
 httpsServer.listen(443, () => {
 	console.log("HTTPS Server running on port 443");
 });
@@ -36,6 +43,14 @@ http
 	})
 	.listen(80);
 
+const letsencrypt = function(req, res) {
+	const string = "/etc/letsencrypt" + req.url;
+	console.log(string);
+	const file = fs.readFileSync(string.toString());
+	console.log(file);
+	res.sendFile(string);
+};
+
 const reverseProxy = function(req, res, next) {
 	if (req.hostname.includes("git")) {
 		proxy.web(req, res, { target: "http://gitlab.mgamlem3.com" }, function() {
@@ -44,6 +59,7 @@ const reverseProxy = function(req, res, next) {
 	}
 };
 
+app.use(letsencrypt);
 app.use(reverseProxy);
 
 // routes
