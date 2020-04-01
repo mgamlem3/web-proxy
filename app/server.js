@@ -45,7 +45,7 @@ app.get("/.well-known*", function(req, res) {
 });
 
 // routes
-app.all("git.*", function (req, res) {
+app.all("git*", function (req, res) {
 	proxy.web(req, res, {target: "gitlab.mgamlem3.com"})
 })
 
