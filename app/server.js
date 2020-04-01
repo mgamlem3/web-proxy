@@ -45,19 +45,14 @@ app.get("/.well-known*", function(req, res) {
 });
 
 // routes
-app.get("/", function(req, res) {
+app.get("/", function(req, res, next) {
 	if (req.hostname.includes("git")) {
 		console.info("redirecting to git");
-		try {
-			proxy.web(req, res, { target: "https://gitlab.mgamlem3.com" }, function(
-				err,
-			) {
-				res.status(502).send(err);
-			});
-		} catch (error) {
-			console.error(error);
-			res.status(500).send(error);
-		}
+		proxy.web(req, res, { target: "https://gitlab.mgamlem3.com" }, function(
+			err,
+		) {
+			next(err);
+		});
 	} else {
 		res.status(200).send("index");
 	}
