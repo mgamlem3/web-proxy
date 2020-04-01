@@ -12,7 +12,10 @@ const app = express();
 const privateKey = fs.readFileSync("/certs/mgamlem3/privkey.pem", "utf8");
 const certificate = fs.readFileSync("/certs/mgamlem3/cert.pem", "utf8");
 const ca = fs.readFileSync("/certs/mgamlem3/chain.pem", "utf8");
-const gitPrivateKey = fs.readFileSync("/certs/git.mgamlem3/privkey.pem", "utf8");
+const gitPrivateKey = fs.readFileSync(
+	"/certs/git.mgamlem3/privkey.pem",
+	"utf8",
+);
 const gitCertificate = fs.readFileSync("/certs/git.mgamlem3/cert.pem", "utf8");
 
 const credentials = {
@@ -24,7 +27,7 @@ const credentials = {
 const gitCredentials = {
 	key: gitPrivateKey,
 	cert: gitCertificate,
-}
+};
 
 // create servers
 const httpsServer = https.createServer(credentials, app);
@@ -44,11 +47,13 @@ http
 	.listen(80);
 
 const letsencrypt = function(req, res) {
-	const string = "/etc/letsencrypt" + req.url;
-	console.log(string);
-	const file = fs.readFileSync(string.toString());
-	console.log(file);
-	res.sendFile(string);
+	if (req.url.contains(".well-known")) {
+		const string = "/etc/letsencrypt" + req.url;
+		console.log(string);
+		const file = fs.readFileSync(string.toString());
+		console.log(file);
+		res.sendFile(string).end();
+	}
 };
 
 const reverseProxy = function(req, res, next) {
