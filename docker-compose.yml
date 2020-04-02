@@ -9,6 +9,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+    command: [nginx-debug, '-g', 'daemon off;']
   certbot:
     image: certbot/certbot
     volumes:
