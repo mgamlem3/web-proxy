@@ -57,7 +57,6 @@ echo "### Requesting Let's Encrypt certificate for $domains ..."
 domain_args=""
 for domain in "${domains[@]}"; do
   domain_args="$domain_args -d $domain"
-  echo "d args: $domain_args"
 done
 
 # Select appropriate email arg
@@ -68,7 +67,7 @@ esac
 
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
-
+echo "d args: $domain_args"
 docker-compose run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
