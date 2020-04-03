@@ -52,12 +52,6 @@ for domain in ${domains[@]}; do
 	echo
 done
 
-echo "### Requesting Let's Encrypt certificate for $domains ..."
-#Join $domains to -d args
-domain_args=""
-for domain in "${domains[@]}"; do
-  domain_args="$domain_args -d $domain"
-done
 
 # Select appropriate email arg
 case "$email" in
@@ -67,16 +61,20 @@ esac
 
 # Enable staging mode if needed
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
-echo "d args: $domain_args"
-docker-compose run --rm --entrypoint "\
+
+# Request cert(s)
+for domain in "${domains[@]}"; do
+  echo "### Requesting Let's Encrypt certificate for $domain ..."
+  docker-compose run --rm --entrypoint "\
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
-    $domain_args \
+    -d $domain \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal" certbot
 echo
+done
 
 echo "### Reloading nginx ..."
 docker-compose exec nginx nginx -s reload
