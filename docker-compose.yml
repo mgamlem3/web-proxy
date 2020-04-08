@@ -6,7 +6,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx:/etc/nginx
       - ./nginx/error-pages:/etc/error-pages
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
